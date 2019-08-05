@@ -59,7 +59,7 @@ const isAuthenticated = req => {
   if (req.session.userId) return true;
   if (!token) return false;
 
-  jwt.verify(token, "bobthebuilder", function(err, decoded) {
+  jwt.verify(token, "bobsyouruncle", function(err, decoded) {
     if (err) return false;
     return true;
   });

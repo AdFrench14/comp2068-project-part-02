@@ -2,18 +2,16 @@ var Conversation = require('../models/conversation');
 
 exports.show = (req, res) => {
     Conversation.findOne({_id: req.params.convoId})
-        .then(conversation => {
-            req.flash('success', "Message found");
-            res.render(`messages/show`, {
-                title: "Edit Message",
-                message: conversation.messages.id(req.params.messageId),
-                conversation: conversation
-        });
-    })
-        .catch(err => {
-            req.flash('error', "Error could not find the messaged");
-            req.redirect(req.get('referer'));
-        });
+        .then(conversation => res.json(conversation))
+    //         {
+    //         req.flash('success', "Message found");
+    //         res.render(`messages/show`, {
+    //             title: "Edit Message",
+    //             message: conversation.messages.id(req.params.messageId),
+    //             conversation: conversation
+    //     });
+    // })
+        .catch(err => err => res.status(404).json(err));
 }
 
 exports.create = (req, res) => {
@@ -67,14 +65,8 @@ exports.update = (req, res) => {
             "messages.$.content": req.body.message.content 
         }
     })
-        .then(() => {
-            req.flash('success', `Message updated`);
-            res.redirect(`/conversations/${req.body.conversation.id}`);
-        })
-        .catch(err => {
-            req.flash('error', `Error: Can't update message`);
-            res.redirect(`/conversations/${req.body.conversation.id}`);
-        });
+        .then(() => () => res.status(200).send({ success: "Message updated"}))
+        .catch(err => res.status(404).send(err));
 }
 
 exports.destroy = (req, res) => {
@@ -85,8 +77,5 @@ exports.destroy = (req, res) => {
             req.flash('success', `Message deleted`);
             res.redirect(`/conversations/${req.body.conversation.id}`);
         })
-        .catch(err => {
-            req.flash('error', `Error: Can't delete message`);
-            res.redirect(`/conversations/${req.body.conversation.id}`);
-        });
+        .catch(err => res.status(404).send(err));
 }
