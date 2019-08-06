@@ -21,17 +21,14 @@ exports.create = (req, res) => {
     console.log("new message user: " + req.body.message.user);
 
     Conversation.findById(req.body.conversation.id)
-        .then(conversation => {
-            console.log("Conversation object from db: " + conversation);
-            console.log("conversation messages from db: " + conversation.messages);
-            conversation.messages.push(req.body.message);
-            conversation.save();
-            res.redirect(req.get('referer')); //refresh the message/index page
-        })
-        .catch(err => {
-            req.flash('error', "Error writing message to the database");
-            res.redirect(req.get('referer'));
-        });
+        .then(conversation => res.status(200).send({ success: "New message created" }))
+        //     {
+        //     console.log("Conversation object from db: " + conversation);
+        //     console.log("conversation messages from db: " + conversation.messages);
+        //     conversation.messages.push(req.body.message);
+        //     conversation.save();
+        // })
+        .catch(err => res.status(404).send({ error: "Error writing message to the database" }));
 }
 
 //Render the page
@@ -40,20 +37,17 @@ exports.edit = (req, res) => {
     console.log("received message id: " + req.params.messageId);
 
     Conversation.findOne({_id: req.params.convoId})
-        .then(conversation => {
-            console.log("CONVERSATION FOUND");
-            console.log('requested message: ' + conversation.messages.id(req.params.messageId));
-            req.flash('success', "Message found");
-            res.render(`messages/edit`, {
-                title: "Edit Message",
-                message: conversation.messages.id(req.params.messageId),
-                conversation: conversation
-        });
-    })
-        .catch(err => {
-            req.flash('error', "Error could not find the messaged");
-            req.redirect(req.get('referer'));
-        });
+        .then(conversation => res.send(conversation))
+            // console.log("CONVERSATION FOUND");
+            // console.log('requested message: ' + conversation.messages.id(req.params.messageId));
+        //     req.flash('success', "Message found");
+        //     res.render(`messages/edit`, {
+        //         title: "Edit Message",
+        //         message: conversation.messages.id(req.params.messageId),
+        //         conversation: conversation
+        // });
+    // })
+        .catch(err => res.status(404).send({ error: "Error could not find the messaged" }));
 }
 
 //Edit the text of a message
@@ -65,17 +59,18 @@ exports.update = (req, res) => {
             "messages.$.content": req.body.message.content 
         }
     })
-        .then(() => () => res.status(200).send({ success: "Message updated"}))
+        .then(() => res.status(200).send({ success: "Message updated"}))
         .catch(err => res.status(404).send(err));
 }
 
 exports.destroy = (req, res) => {
     Conversation.findById(req.body.conversation.id)
-        .then(conversation => {
-            conversation.messages.id(req.body.message.id).remove();
-            conversation.save();
-            req.flash('success', `Message deleted`);
-            res.redirect(`/conversations/${req.body.conversation.id}`);
-        })
+        .then(conversation => res.status(200).send({ success: "Message deleted" }))
+        //     {
+        //     conversation.messages.id(req.body.message.id).remove();
+        //     conversation.save();
+        //     req.flash('success', `Message deleted`);
+        //     res.redirect(`/conversations/${req.body.conversation.id}`);
+        // })
         .catch(err => res.status(404).send(err));
 }
