@@ -11,9 +11,6 @@ function Index() {
       .catch(err => console.error(err));
   }, []);
 
-  console.log(useEffect);
-
-
   return (
     <div className="container">
       <header>
@@ -31,10 +28,10 @@ function Index() {
           </thead>
           <tbody> {conversations.map(conversation =>(
             <tr key={conversation._id}>
-              <td>{conversation.users.firstName} ${conversation.users.lastName}</td>
+              <td>{conversation.users.firstName} {conversation.users.lastName}</td>
               <td>
               <Link to={`/conversations/${conversation._id}`}>open</Link>|
-                                    <Link to={`/conversations/${conversation._id}/destroy`}>delete</Link>
+                      <Link to={`/conversations/${conversation._id}/destroy`}>delete</Link>
               </td>
             </tr>
             ))}

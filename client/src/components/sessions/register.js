@@ -10,7 +10,7 @@ function Register() {
     event.preventDefault();
 
     Axios.post("/api/users", {
-      author: {
+      user: {
         firstName: inputs.firstName,
         lastName: inputs.lastName,
         email: inputs.email,

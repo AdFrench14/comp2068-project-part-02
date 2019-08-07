@@ -8,26 +8,28 @@ function Show(props) {
   useEffect(() => {
     Axios.get(`/api/users/${props.match.params.id}`)
     .then(result => setUser(result.data))
-    .catch(err => console.err(err));
+    .catch(err => console.log(err));
   }, [props]);
 
   return (
     <div className="container">
       <header>
-        <h1 className="">Profile</h1>
+        <h1 className="user">Profile</h1>
       </header>
-      <div className="user-profile space">
-        {user.firstName}
-      </div>
-      <div className="user-profile">
-        {user.lastName}
-      </div>
-      <div className="user-profile break-word">
-        {user.email}
-      </div>
-      <div>
-        <Link to={`/users/${user._id}`}>edit</Link>|
-               <Link to={`/users/${user._id}/destroy`}>delete</Link>
+      <div className="userContainer">
+        <div className="user-profile space">
+          {user.firstName}
+        </div>
+        <div className="user-profile">
+          {user.lastName}
+        </div>
+        <div className="user-profile break-word">
+          {user.email}
+        </div>
+        <div>
+          <Link to={`/users/${user._id}`}>edit</Link>|
+                <Link to={`/users/${user._id}/destroy`}>delete</Link>
+        </div>
       </div>
     </div>
   )
