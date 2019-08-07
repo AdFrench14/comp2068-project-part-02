@@ -1,0 +1,36 @@
+import React, {useState, useEffect} from "react";
+import Axios from "axios";
+import { Link } from "react-router-dom";
+
+function Show(props) {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    Axios.get(`/api/users/${props.match.params.id}`)
+    .then(result => setUser(result.data))
+    .catch(err => console.err(err));
+  }, [props]);
+
+  return (
+    <div className="container">
+      <header>
+        <h1 className="">Profile</h1>
+      </header>
+      <div className="user-profile space">
+        {user.firstName}
+      </div>
+      <div className="user-profile">
+        {user.lastName}
+      </div>
+      <div className="user-profile break-word">
+        {user.email}
+      </div>
+      <div>
+        <Link to={`/users/${user._id}`}>edit</Link>|
+               <Link to={`/users/${user._id}/destroy`}>delete</Link>
+      </div>
+    </div>
+  )
+}
+
+export default Show;

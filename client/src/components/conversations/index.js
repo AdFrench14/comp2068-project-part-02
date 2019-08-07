@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 
 function Index() {
   const [conversations, setConversations] = useState([]);
@@ -10,12 +11,15 @@ function Index() {
       .catch(err => console.error(err));
   }, []);
 
+  console.log(useEffect);
+
+
   return (
     <div className="container">
       <header>
         <h1> ChitChat </h1>
       </header>
-
+        <Link to={`/conversations/new/`}>New Conversation</Link>
       <div className="backdiv">
         <table className="table table-striped">
           <thead>
@@ -25,10 +29,15 @@ function Index() {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td></td>
+          <tbody> {conversations.map(conversation =>(
+            <tr key={conversation._id}>
+              <td>{conversation.users.firstName} ${conversation.users.lastName}</td>
+              <td>
+              <Link to={`/conversations/${conversation._id}`}>open</Link>|
+                                    <Link to={`/conversations/${conversation._id}/destroy`}>delete</Link>
+              </td>
             </tr>
+            ))}
           </tbody>
         </table>
       </div>
