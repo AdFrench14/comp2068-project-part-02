@@ -27,13 +27,7 @@ function Index() {
           </thead>
           <tbody>
             <tr>
-              <td>
-                {for (let i = 0; i < conversation.users.length; i++)
-                  if(i != conversation.users.length -1)
-                    span= `${conversation.users[i].firstName} ${conversation.users[i].lastName}, `
-                  else
-                    span= `${conversation.users[i].firstName} ${conversation.users[i].lastName}`
-              if(conversation.message)}</td>
+              <td></td>
             </tr>
           </tbody>
         </table>
