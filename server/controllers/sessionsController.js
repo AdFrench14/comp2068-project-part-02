@@ -6,7 +6,6 @@ exports.authenticate = (req, res) => {
         email: req.body.email
     })
         .then(user => {
-            if(!user) throw new Error('Error: Your credentials do not match');
             user.authenticate(req.body.password, (err, isMatch) => {
                 if(err) throw new Error(err);
 
@@ -15,15 +14,17 @@ exports.authenticate = (req, res) => {
                      
                     const token = jwt.sign({payload: req.body.email}, "bobsyouruncle",{expiresIn: "2h"}
                     );
-                    res.cookie('token', token, {httpOnly: true});
+                    res.cookie('token', token, {httpOnly: true})
+                    .status(201)
+                    .send({ success: "Authenticated successfully" });
                 }
                 else {
-                    res.json({error: 'Your credentials do not match'});
+                    res.status(401).json({ error: "Your credentials do not match" });
                 }
             });
         })
         .catch(err => {
-            res.json(err);
+            res.status(404).json(err);
         });
 };
 
