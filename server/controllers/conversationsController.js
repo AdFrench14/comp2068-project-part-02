@@ -31,7 +31,10 @@ exports.index = (req, res) => {
         users: {$elemMatch: {$in: [req.session.userId]}}
     })
         .populate('users')
-		.then((conversations) => res.json(conversations))
+		.then(conversations => {
+            console.log(conversations)
+            res.json(conversations || [])
+        })
         .catch(err => res.status(404).json(err));
 }
 
