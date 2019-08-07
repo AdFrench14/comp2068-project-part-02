@@ -21,13 +21,13 @@ exports.create = (req, res) => {
     console.log("new message user: " + req.body.message.user);
 
     Conversation.findById(req.body.conversation.id)
-        .then(conversation => res.status(200).send({ success: "New message created" }))
-        //     {
-        //     console.log("Conversation object from db: " + conversation);
-        //     console.log("conversation messages from db: " + conversation.messages);
-        //     conversation.messages.push(req.body.message);
-        //     conversation.save();
-        // })
+        .then(conversation => {
+            console.log("Conversation object from db: " + conversation);
+            console.log("conversation messages from db: " + conversation.messages);
+            conversation.messages.push(req.body.message);
+            conversation.save();
+            res.status(200).send({ success: "New message created" })
+         })
         .catch(err => res.status(404).send({ error: "Error writing message to the database" }));
 }
 
@@ -65,12 +65,10 @@ exports.update = (req, res) => {
 
 exports.destroy = (req, res) => {
     Conversation.findById(req.body.conversation.id)
-        .then(conversation => res.status(200).send({ success: "Message deleted" }))
-        //     {
-        //     conversation.messages.id(req.body.message.id).remove();
-        //     conversation.save();
-        //     req.flash('success', `Message deleted`);
-        //     res.redirect(`/conversations/${req.body.conversation.id}`);
-        // })
+        .then(conversation => {
+            conversation.messages.id(req.body.message.id).remove();
+            conversation.save();
+            res.status(200).send({ success: "Message deleted" })
+            })
         .catch(err => res.status(404).send(err));
 }
