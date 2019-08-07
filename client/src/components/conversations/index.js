@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { Link } from "react-router-dom";
 
 function Index() {
-  const [blogs, setBlogs] = useState([]);
+  const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
     Axios.get("/api/conversations")
@@ -17,10 +16,26 @@ function Index() {
         <h1> ChitChat </h1>
       </header>
 
-      <div>
+      <div className="backdiv">
         <table className="table table-striped">
-
-          
+          <thead>
+            <tr>
+              <th>Participants</th>
+              <th>Latest Message</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {for (let i = 0; i < conversation.users.length; i++)
+                  if(i != conversation.users.length -1)
+                    span= `${conversation.users[i].firstName} ${conversation.users[i].lastName}, `
+                  else
+                    span= `${conversation.users[i].firstName} ${conversation.users[i].lastName}`
+              if(conversation.message)}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
