@@ -22,10 +22,8 @@ function New() {
     event.preventDefault();
 
     Axios.post("/api/conversations", {
-      blog: {
-        title: inputs.title,
-        content: inputs.content,
-        status: inputs.status
+      conversation: {
+        
       }
     })
       .then(resp => setRedirect(true))

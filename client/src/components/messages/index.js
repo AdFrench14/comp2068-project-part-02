@@ -3,11 +3,13 @@ import Axios from "axios";
 import { Link } from "react-router-dom";
 
 function Index() {
-  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState([]);
+  const [conversation] = useState({});
+  const [user] = useState({});
 
   useEffect(() => {
     Axios.get("/api/messages")
-      .then(result => setMessages(result.data)) 
+      .then(result => setMessage(result.data)) 
       .catch(err => console.error(err));
   }, []);
 
@@ -29,7 +31,7 @@ function Index() {
                 <li className="nav-item dropdown">
                   <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">...</a> 
                   <div className="dropdown-menu">
-                      <Link to={`/messages/${conversation._id}/${message.id}/edit}`}>edit</Link>|
+                      <Link to={`/messages/${conversation._id}/${message._id}/edit}`}>edit</Link>|
                       <Link to={`/messages/${conversation._id}/destroy`}>delete</Link>
                   </div>
                 </li>

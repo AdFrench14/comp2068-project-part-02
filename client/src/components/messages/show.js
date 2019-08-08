@@ -3,6 +3,7 @@ import Axios from "axios";
 
 function Show(props) {
   const [message, setMessage] = useState({});
+  const [conversation] = useState({});
 
   useEffect(() => {
     Axios.get(`/api/messages/${props.match.params.id}`)
@@ -17,11 +18,11 @@ function Show(props) {
       </header>
       <div>
         <h2>Conversation ID</h2>
-        <text>{conversation.id}</text>
+        <text>{conversation._id}</text>
       </div>
       <div>
         <h2>Message ID</h2>
-        <text>{message.id}</text>
+        <text>{message._id}</text>
       </div>
       <div>
         <h2>Message Sender ID</h2>
