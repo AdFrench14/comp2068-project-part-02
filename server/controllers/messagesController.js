@@ -2,15 +2,9 @@ var Conversation = require('../models/conversation');
 
 exports.show = (req, res) => {
     Conversation.findOne({_id: req.params.convoId})
-        .then(conversation => res.json(conversation))
-    //         {
-    //         req.flash('success', "Message found");
-    //         res.render(`messages/show`, {
-    //             title: "Edit Message",
-    //             message: conversation.messages.id(req.params.messageId),
-    //             conversation: conversation
-    //     });
-    // })
+        .then(conversation => { res.json(conversation);
+            console.log(conversation)
+        }) 
         .catch(err => err => res.status(404).json(err));
 }
 
