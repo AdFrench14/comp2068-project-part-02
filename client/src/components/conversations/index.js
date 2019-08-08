@@ -11,7 +11,17 @@ function Index() {
       .catch(err => console.error(err));
   }, []);
 
-  return (
+  //console.log(conversations[0].users[0]);
+
+  
+  //for (let i = 0; i < conversations.length; i ++) {
+  //  console.log(conversations[i].users[1].firstName);
+  //}
+  //debugger
+  //console.log((conversations && conversations[0].users)); 
+  //console.log(conversations[1].users);
+  if(conversations.length != 0){
+    return (
     <div className="container">
       <header>
         <h1> ChitChat </h1>
@@ -26,20 +36,21 @@ function Index() {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody> {conversations.map(conversation =>(
-            <tr key={conversation._id}>
-              <td>{conversation.users.firstName} {conversation.users.lastName}</td>
+          <tbody> 
+            <tr>
+              <td>{conversations[0].users[0].firstName}</td>
               <td>
-              <Link to={`/conversations/${conversation._id}`}>open</Link>|
-                      <Link to={`/conversations/${conversation._id}/destroy`}>delete</Link>
+              <Link to={`/conversations/${conversations._id}`}>open</Link>|
+                      <Link to={`/conversations/${conversations._id}/destroy`}>delete</Link>
               </td>
             </tr>
-            ))}
           </tbody>
         </table>
       </div>
     </div>
-  )
+  );
+        }
+  return null;
 }
 
 export default Index; 

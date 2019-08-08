@@ -29,7 +29,7 @@ function Index() {
               <td className="user-container">{message.content}</td>
               <ul className="nav flex-column">
                 <li className="nav-item dropdown">
-                  <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">...</a> 
+                  <Link className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">...</Link> 
                   <div className="dropdown-menu">
                       <Link to={`/messages/${conversation._id}/${message._id}/edit}`}>edit</Link>|
                       <Link to={`/messages/${conversation._id}/destroy`}>delete</Link>

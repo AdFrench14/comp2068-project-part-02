@@ -22,11 +22,7 @@ function New() {
     event.preventDefault();
 
     Axios.post("/api/conversations", {
-      conversation: {
-        content: inputs.content,
-        user: inputs.user,
-        timestamp: inputs.timestamp
-      }
+        email: inputs.email
     })
       .then(resp => setRedirect(true))
       .catch(err => console.log(err));

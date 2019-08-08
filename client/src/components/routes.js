@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./pages/home";
 
 import ConversationIndex from "./conversations/index";
+import ConversationNew from "./conversations/new";
 import ConversationDestroy from "./conversations/destroy";
 import UserIndex from "./users/index";
 import UserShow from "./users/show";
@@ -22,10 +23,11 @@ function Routes() {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/conversations" component={ConversationIndex} />
+      <Route exact path="/conversations/new" component={ConversationNew} />
       <Route exact path="/conversations/:id/destroy" component={ConversationDestroy} />
       <Route exact path="/messages" component={MessageIndex} />
-      <Route exact path="/messages/:convoId/:messageId" component={MessageShow} />
-      <Route exact path="/messages/:convoId/:messageId/edit" component={MessageEdit} />
+      <Route exact path="/messages/:id/" component={MessageShow} />
+      <Route exact path="/messages/:id//edit" component={MessageEdit} />
       <Route exact path="/messages/:id/destroy" component={MessageDestroy} />
       <Route exact path="/users" component={UserIndex} />
       <Route exact path="/users/:id" component={UserShow} />
