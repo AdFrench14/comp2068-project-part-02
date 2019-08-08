@@ -3,6 +3,7 @@ const Conversation = require('../models/conversation');
 const User = require('../models/user');
 
 exports.create = (req, res) => {
+    console.log("CREATE CONVO REQUEST RECEIVED");
     if (!req.isAuthenticated()) 
       return res.status(401).send({error: "Not Authenticated"});
     //Find the recipient in the database
