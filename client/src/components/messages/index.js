@@ -18,7 +18,7 @@ function Index() {
       </header>
       <div className="box left">
         <table className="table table-striped convo">
-          <tbody> {messages.map(message =>(
+          <tbody> {conversation.messages.map(message =>(
             <tr className="message-row" key={message._id}>
               <td className="user-name">{message.user.firstName}{message.user.lastName}</td>
             </tr>
@@ -44,7 +44,7 @@ function Index() {
                   <th className="chatter">Chatter Participants</th>
                 </tr>
               </thead>
-              <tbody>{users.map(conversation.users (
+              <tbody>{conversation.users.map(users =>(
                 <tr className="message-row" key={user._id}>
                   <td className="user-name side">{user.firstName}{user.lastName}</td>
                 </tr>

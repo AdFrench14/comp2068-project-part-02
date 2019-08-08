@@ -4,8 +4,14 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./pages/home";
 
 import ConversationIndex from "./conversations/index";
+import ConversationDestroy from "./conversations/destroy";
 import UserIndex from "./users/index";
 import UserShow from "./users/show";
+import UserEdit from "./users/edit";
+import MessageIndex from "./messages/index";
+import MessageShow from "./messages/show";
+import MessageEdit from "./messages/edit";
+import MessageDestroy from "./messages/destroy";
 
 import Register from "./sessions/register";
 import Login from "./sessions/login";
@@ -16,8 +22,14 @@ function Routes() {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/conversations" component={ConversationIndex} />
+      <Route exact path="/conversations/:id/destroy" component={ConversationDestroy} />
+      <Route exact path="/messages" component={MessageIndex} />
+      <Route exact path="/messages/:id" component={MessageShow} />
+      <Route exact path="/messages/:id/edit" component={MessageEdit} />
+      <Route exact path="/messages/:id/destroy" component={MessageDestroy} />
       <Route exact path="/users" component={UserIndex} />
       <Route exact path="/users/:id" component={UserShow} />
+      <Route exact path="/users/:id/edit" component={UserEdit} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/logout" component={Logout} /> 
