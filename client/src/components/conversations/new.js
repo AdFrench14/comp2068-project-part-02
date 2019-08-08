@@ -23,7 +23,9 @@ function New() {
 
     Axios.post("/api/conversations", {
       conversation: {
-        
+        content: inputs.content,
+        user: inputs.user,
+        timestamp: inputs.timestamp
       }
     })
       .then(resp => setRedirect(true))
