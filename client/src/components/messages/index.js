@@ -78,7 +78,7 @@ function Index(props) {
                     <li className="nav-item dropdown">
                       <Link className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">...</Link> 
                       <div className="dropdown-menu">
-                          <Link to={`/messages/${conversation._id}/${message._id}/edit`}>edit</Link> | <Link to={`/messages/${conversation._id}/destroy`}>delete</Link>
+                          <Link to={`/messages/${conversation._id}/${message._id}/edit`}>edit</Link> | <Link to={`/messages/${conversation._id}/${message.id}/destroy`}>delete</Link>
                       </div>
                     </li>
                   </ul>
