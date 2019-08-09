@@ -8,7 +8,7 @@ function Show(props) {
   useEffect(() => {
     Axios.get(`/api/messages/${props.match.params.id}`)
     .then(result => setMessage(result.data))
-    .catch(err => console.err(err));
+    .catch(err => console.error(err));
   }, [props]);
 
   return (

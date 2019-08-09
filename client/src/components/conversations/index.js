@@ -20,7 +20,7 @@ function Index() {
   //debugger
   //console.log((conversations && conversations[0].users)); 
   //console.log(conversations[1].users);
-  if(conversations.length != 0){
+  if(conversations.length !== 0){
     return (
     <div className="container">
       <header>

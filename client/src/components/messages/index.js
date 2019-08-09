@@ -10,7 +10,6 @@ function Index(props) {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    console.log("hello world");
     Axios.get(`/api/conversations/${props.match.params.convoId}`)
       .then(result => {
         setConversation(result.data);
@@ -54,7 +53,7 @@ function Index(props) {
 
   // {message.user.firstName}{message.user.lastName}
   console.log("our data", conversation, users, messages);
-  if(conversation.length != 0){
+  if(conversation.length !== 0){
     return (
       <div className="container">
         <header>
