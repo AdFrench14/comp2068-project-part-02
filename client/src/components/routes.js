@@ -25,9 +25,9 @@ function Routes() {
       <Route exact path="/conversations" component={ConversationIndex} />
       <Route exact path="/conversations/new" component={ConversationNew} />
       <Route exact path="/conversations/:id/destroy" component={ConversationDestroy} />
-      <Route exact path="/messages" component={MessageIndex} />
-      <Route exact path="/messages/:id/" component={MessageShow} />
-      <Route exact path="/messages/:id//edit" component={MessageEdit} />
+      <Route exact path="/conversations/:convoId" component={MessageIndex} />
+      <Route exact path="/messages/:convoId/:messageId" component={MessageShow} />
+      <Route exact path="/messages/:convoId/:messageId/edit" component={MessageEdit} />
       <Route exact path="/messages/:id/destroy" component={MessageDestroy} />
       <Route exact path="/users" component={UserIndex} />
       <Route exact path="/users/:id" component={UserShow} />

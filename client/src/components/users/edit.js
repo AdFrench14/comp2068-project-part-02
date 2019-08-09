@@ -5,6 +5,8 @@ import Axios from "axios";
 function Edit(props) {
   const [inputs, setInputs] = useState({});
   const [redirect, setRedirect] = useState(false);
+  const [user, setUser] = useState({});
+  console.log(user);
 
   useEffect(() => {
     Axios.get(`/api/users/${props.match.params.id}`)
@@ -22,13 +24,11 @@ function Edit(props) {
         user: {
           firstName:  inputs.firstName,
           lastName: inputs.lastName,
-          email: inputs.email,
-          password: inputs.password
+          email: inputs.email
         }
       })
       .then(() => setRedirect(true))
       .catch(err => console.err(err));
-
   }
 
   function handleInputChange(event) {
@@ -42,34 +42,50 @@ function Edit(props) {
   }
 
   if (redirect) {
-    return <Redirect to="/blogs" />;
+    return <Redirect to="/users" />;
   }
 
   return (
     <div className="container">
       <header>
-        <h1>Edit Blog Post</h1>
+        <h1>Edit {inputs.firstName}'s Profile</h1>
       </header>
       <div>
-        <form action="/blogs" method="POST" onSubmit={handleSubmit}>
+        <form action="/users" method="POST" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Title</label>
-            <input className="form-control" name="title" required="required" onChange={handleInputChange} defaultValue={inputs.title} />
+            <label>First Name</label>
+            <input
+              className="form-control"
+              name="firstName"
+              required="required"
+              value={inputs.firstName}
+              onChange={handleInputChange}
+            />
           </div>
 
           <div className="form-group">
-            <label>Content</label>
-            <textarea className="form-control" name="content" onChange={handleInputChange} value={inputs.content} />
+            <label>Last Name</label>
+            <input
+              className="form-control"
+              name="lastName"
+              required="required"
+              value={inputs.lastName}
+              onChange={handleInputChange}
+            />
           </div>
 
           <div className="form-group">
-            <label>Status</label>
-            <select className="form-control" name="status" required="required" onChange={handleInputChange} defaultValue={inputs.status}>
-              <option value="DRAFT">draft</option>
-              <option value="PUBLISHED">published</option>
-            </select>
+            <label>Email</label>
+            <input
+              className="form-control"
+              name="email"
+              required="required"
+              value={inputs.email}
+              onChange={handleInputChange}
+            />
           </div>
-
+          </form>
           <div className="form-group">
             <button className="btn btn-dark" type="submit">Submit</button>
           </div>

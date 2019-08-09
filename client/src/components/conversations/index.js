@@ -32,18 +32,27 @@ function Index() {
           <thead>
             <tr>
               <th>Participants</th>
-              <th>Latest Message</th>
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody> 
-            <tr>
-              <td>{conversations[0].users[0].firstName}</td>
+          <tbody> {conversations.map(conversation => (
+            <tr key={conversation._id}>
               <td>
-              <Link to={`/conversations/${conversations._id}`}>open</Link>|
-                      <Link to={`/conversations/${conversations._id}/destroy`}>delete</Link>
+                {conversation.users.map((user, i) => {
+                  if((i+1) === conversation.users.length) {
+                    return `${user.firstName} ${user.lastName}`;
+                  }
+                  else {
+                    return `${user.firstName} ${user.lastName}, `;
+                  }
+                }
+                )}
+              </td>
+              <td>
+              <Link to={`/conversations/${conversation._id}`}>open</Link> | <Link to={`/conversations/${conversation._id}/destroy`}>delete</Link>
               </td>
             </tr>
+          ))}
           </tbody>
         </table>
       </div>

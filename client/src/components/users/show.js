@@ -27,7 +27,7 @@ function Show(props) {
           {user.email}
         </div>
         <div>
-          <Link to={`/users/${user._id}`}>edit</Link>|
+          <Link to={`/users/${user._id}/edit`}>edit</Link>|
                 <Link to={`/users/${user._id}/destroy`}>delete</Link>
         </div>
       </div>

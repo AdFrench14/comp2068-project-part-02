@@ -20,9 +20,7 @@ function Edit(props) {
       {
         id: props.match.params.id,
         message: {
-          // title: inputs.title,
-          // content: inputs.content,
-          // status: inputs.status
+         
         }
       })
       .then(() => setRedirect(true))
