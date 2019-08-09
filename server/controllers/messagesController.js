@@ -65,6 +65,8 @@ exports.update = (req, res) => {
 }
 
 exports.destroy = (req, res) => {
+    console.log("Reached destroy on server");
+    console.log("request body", req.body);
     Conversation.findById(req.body.conversation.id)
         .then(conversation => {
             conversation.messages.id(req.body.message.id).remove();

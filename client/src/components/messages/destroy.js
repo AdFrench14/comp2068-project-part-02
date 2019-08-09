@@ -4,8 +4,11 @@ import Axios from "axios";
 
 function Destroy(props) {
   useEffect(() => {
-    Axios.post('/api/messages/destroy', { id: props.match.params.id });
-  }, [props]);
+    Axios.post('/api/messages/destroy', { 
+      conversation: {id: props.match.params.convoId},
+      message : {id: props.match.params.messageId}
+    });
+  }, []);
 
   return <Redirect to="/messages" />;
 }
