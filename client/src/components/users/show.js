@@ -16,8 +16,8 @@ function Show(props) {
       <header>
         <h1 className="user">Profile</h1>
       </header>
-      <div className="userContainer">
-        <div className="user-profile space">
+      <div className="user-container">
+        <div className="user-profile">
           {user.firstName}
         </div>
         <div className="user-profile">
@@ -26,7 +26,7 @@ function Show(props) {
         <div className="user-profile break-word">
           {user.email}
         </div>
-        <div>
+        <div profile-buttons>
           <Link to={`/users/${user._id}/edit`}>edit</Link>|
                 <Link to={`/users/${user._id}/destroy`}>delete</Link>
         </div>

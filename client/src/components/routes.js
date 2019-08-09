@@ -28,7 +28,7 @@ function Routes() {
       <Route exact path="/conversations/:convoId" component={MessageIndex} />
       <Route exact path="/messages/:convoId/:messageId" component={MessageShow} />
       <Route exact path="/messages/:convoId/:messageId/edit" component={MessageEdit} />
-      <Route exact path="/messages/:id/destroy" component={MessageDestroy} />
+      <Route exact path="/messages/:messageId/destroy" component={MessageDestroy} />
       <Route exact path="/users" component={UserIndex} />
       <Route exact path="/users/:id" component={UserShow} />
       <Route exact path="/users/:id/edit" component={UserEdit} />
