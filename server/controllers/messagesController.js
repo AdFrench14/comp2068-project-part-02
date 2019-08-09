@@ -64,9 +64,22 @@ exports.update = (req, res) => {
         });
 }
 
+exports.update = (req, res) => {
+    Conversation.findOneAndUpdate(
+    { "_id": req.body.conversation.id, "messages._id": req.body.message.id },
+    { 
+        "$set": {
+            "messages.$.content": req.body.message.content 
+        }
+    })
+        .then(() => res.status(200).send({ success: "Message updated"}))
+        .catch(err => {
+            console.log("ERROR", err);
+            res.status(404).send(err);
+        });
+}
+
 exports.destroy = (req, res) => {
-    console.log("Reached destroy on server");
-    console.log("request body", req.body);
     Conversation.findById(req.body.conversation.id)
         .then(conversation => {
             conversation.messages.id(req.body.message.id).remove();

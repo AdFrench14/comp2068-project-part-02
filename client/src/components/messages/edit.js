@@ -3,15 +3,20 @@ import { Redirect } from "react-router-dom";
 import Axios from "axios";
 
 function Edit(props) {
-  const [inputs, setInputs] = useState({});
+  const [conversation, setConversation] = useState({});
   const [redirect, setRedirect] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState([]);
+  const [inputs, setInputs] = useState([]);
 
   useEffect(() => {
-    Axios.get(`/api/messages/${props.match.params.id}`)
-      .then(result => setInputs(result.data))
+    Axios.get(`/api/messages/${props.match.params.convoId}/${props.match.params.messageId}`)
+      .then(result => {
+        setConversation(result.data);
+        setMessage(result.data.messages.find(msg => msg._id = props.match.params.messageId));
+      })
       .catch(err => console.error(err));
   }, [props]);
+
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -19,14 +24,16 @@ function Edit(props) {
     Axios.post(
       "/api/messages/update",
       {
-        id: props.match.params.id,
+        conversation: {
+          id: conversation._id
+        },
         message: {
-         
+          id: message._id,
+          content: inputs.content
         }
       })
       .then(() => setRedirect(true))
       .catch(err => console.err(err));
-
   }
 
   function handleInputChange(event) {
@@ -40,9 +47,12 @@ function Edit(props) {
   }
 
   if (redirect) {
-    return <Redirect to="" />;
+    return <Redirect to={`/conversations/${conversation._id}`} />;
   }
 
+  if(message.content != null) {
+    console.log("message", message);
+    console.log("conversation", conversation);
   return (
     <div className="container">
       <header>
@@ -53,12 +63,16 @@ function Edit(props) {
             <input type="hidden" name="messageID" value="message._id"/>
     
             <input type="hidden" name="conversationID" value="conversation.id"/>
-            <textarea id="message-box" className="form-control.message" defaultValue={messages.content} onChange={handleInputChange} />
+            <textarea id="message-box" className="form-control.message" name="content" defaultValue={message.content} onChange={handleInputChange}/>
             <button className="btn btn-dark" type="submit">Submit</button>
           </div>  
         </form>
     </div>
   );
+  }
+  else {
+    return null;
+  }
 }
 
 export default Edit;
