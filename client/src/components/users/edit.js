@@ -48,7 +48,7 @@ function Edit(props) {
   return (
     <div className="container">
       <header>
-        <h1>Edit {inputs.firstName}'s Profile</h1>
+        <h1 className="user">Edit {inputs.firstName}'s Profile</h1>
       </header>
       <div>
         <form action="/users" method="POST" onSubmit={handleSubmit}>
@@ -59,7 +59,7 @@ function Edit(props) {
               className="form-control"
               name="firstName"
               required="required"
-              value={inputs.firstName}
+              defaultValue={inputs.firstName}
               onChange={handleInputChange}
             />
           </div>
@@ -70,7 +70,7 @@ function Edit(props) {
               className="form-control"
               name="lastName"
               required="required"
-              value={inputs.lastName}
+              defaultValue={inputs.lastName}
               onChange={handleInputChange}
             />
           </div>
@@ -81,7 +81,7 @@ function Edit(props) {
               className="form-control"
               name="email"
               required="required"
-              value={inputs.email}
+              defaultValue={inputs.email}
               onChange={handleInputChange}
             />
           </div>

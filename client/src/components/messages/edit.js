@@ -47,6 +47,13 @@ function Edit(props) {
       <header>
         <h1>Edit</h1>
       </header>
+      <form onSubmit={handleSubmit}>
+           {/* {if message} */}
+          <div className="form-group text">
+            <textarea id="message-box" className="form-control.message" name="messageContent" onChange={handleInputChange} />
+            <button className="btn btn-dark" type="submit">Submit</button>
+          </div>  
+        </form>
     </div>
   );
 }
