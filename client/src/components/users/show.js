@@ -17,7 +17,7 @@ function Show(props) {
         <h1 className="user">Profile</h1>
       </header>
       <div className="user-container">
-        <div className="user-profile space">
+        <div className="user-profile">
           {user.firstName}
         </div>
         <div className="user-profile">
