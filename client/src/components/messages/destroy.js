@@ -10,7 +10,7 @@ function Destroy(props) {
     });
   }, []);
 
-  return <Redirect to="/messages" />;
+  return <Redirect to={`/conversations/${props.match.params.convoId}`} />;
 }
 
 export default Destroy;
