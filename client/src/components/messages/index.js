@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
+import socketIOclient from "socket.io-client";
 
 function Index(props) {
   const [messages, setMessages] = useState([]);
@@ -9,26 +10,40 @@ function Index(props) {
   const [inputs, setInputs] = useState({});
   const [redirect, setRedirect] = useState(false);
 
-  useEffect(() => {
+  var socket = socketIOclient('http://localhost:4000'); //should default to our host, which will proxy to :4000 to the server?
+  socket.on('connect', function() { //request to join this conversation's room
+    socket.emit('join', `${props.match.params.convoId}`);
+  });
+
+  socket.on('new message', function() {
+    console.log('new message event received');
+      getMessages();
+  });
+
+  function getMessages() {
     Axios.get(`/api/conversations/${props.match.params.convoId}`)
-      .then(result => {
-        setConversation(result.data);
-        if (result.data) setMessages((result.data.messages || []));
-        if (result.data) setUsers(result.data.users);
-        if (result.data) {
-          setInputs(inputs => {
-            return {
-              ...inputs,
-              messagesID: result.data.messages._id,
-              conversationID: result.data._id
-            };
-          });
-        }
-        console.log("OUR FREAKING RESULT DATA", result.data);
-      }) 
-      .catch(err => {
-        console.error(err);
-      });
+    .then(result => {
+      setConversation(result.data);
+      if (result.data) setMessages((result.data.messages || []));
+      if (result.data) setUsers(result.data.users);
+      if (result.data) {
+        setInputs(inputs => {
+          return {
+            ...inputs,
+            messagesID: result.data.messages._id,
+            conversationID: result.data._id
+          };
+        });
+      }
+      console.log("OUR FREAKING RESULT DATA", result.data);
+    }) 
+    .catch(err => {
+      console.error(err);
+    });
+  }
+
+  useEffect(() => {
+    getMessages();
   }, []);
 
   function handleInputChange(event) {
@@ -45,6 +60,10 @@ function Index(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
+
+    socket.emit('message sent', props.match.params.convoId); //tell all user in the room that a message has been sent
+    console.log('message sent event emitted');
+    document.querySelector('#message-box').value = "";
 
     Axios.post("/api/messages/update", inputs)
       .then(resp => setRedirect(true))
@@ -102,7 +121,7 @@ function Index(props) {
         <form onSubmit={handleSubmit}>
            {/* {if message} */}
           <div className="form-group text">
-            <textarea className="form-control.message" name="messageContent" onChange={handleInputChange} />
+            <textarea id="message-box" className="form-control.message" name="messageContent" onChange={handleInputChange} />
             <button className="btn btn-dark" type="submit">Submit</button>
           </div>  
         </form>

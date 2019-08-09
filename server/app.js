@@ -101,9 +101,23 @@ app.use("/api", routes);
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+  console.log("user connected");
+
+  socket.on('join', function(room) {
+    socket.join(room);
+    console.log(`user joined room: ${room}`);
   });
+
+  socket.on('message sent', function(room){
+    console.log('Message sent event received');
+    io.to(`${room}`).emit('new message');
+    console.log("new message event emitted");
+  });
+
+  socket.on('disconnection', () => {
+    console.log("user disconnected");
+  })
+
 });
 
 // Starting our server on port 4000
