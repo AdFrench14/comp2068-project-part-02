@@ -5,7 +5,7 @@ exports.show = (req, res) => {
         .then(conversation => { res.json(conversation);
             console.log(conversation)
         }) 
-        .catch(err => err => res.status(404).json(err));
+        .catch(err => res.status(404).json(err));
 }
 
 exports.create = (req, res) => {
@@ -46,15 +46,22 @@ exports.edit = (req, res) => {
 
 //Edit the text of a message
 exports.update = (req, res) => {
-    Conversation.findOneAndUpdate(
-    { "_id": req.body.conversation.id, "messages._id": req.body.message.id },
-    { 
-        "$set": {
-            "messages.$.content": req.body.message.content 
+    console.log("request body", req.body);
+    Conversation.updateOne(
+    { _id: req.body.conversationID },
+    {
+        $push: {
+            messages: {
+                content: req.body.messageContent,
+                user: req.session.userId
+            }
         }
     })
         .then(() => res.status(200).send({ success: "Message updated"}))
-        .catch(err => res.status(404).send(err));
+        .catch(err => {
+            console.log("ERROR", err);
+            res.status(404).send(err);
+        });
 }
 
 exports.destroy = (req, res) => {
