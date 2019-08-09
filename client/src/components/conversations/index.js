@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 function Index() {
   const [conversations, setConversations] = useState([]);
@@ -26,7 +27,7 @@ function Index() {
       <header>
         <h1> ChitChat </h1>
       </header>
-        <Link to={`/conversations/new/`}>New Conversation</Link>
+      <Button variant="dark" href={`/conversations/new/`}>New Conversation</Button>
       <div className="backdiv">
         <table className="table table-striped">
           <thead>
@@ -58,8 +59,12 @@ function Index() {
       </div>
     </div>
   );
-        }
-  return null;
+    }
+  return (
+    <div className="container">
+      <Button variant="dark" href={`/conversations/new/`}>New Conversation</Button>
+    </div>
+  )
 }
 
 export default Index; 

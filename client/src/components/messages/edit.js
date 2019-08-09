@@ -5,6 +5,7 @@ import Axios from "axios";
 function Edit(props) {
   const [inputs, setInputs] = useState({});
   const [redirect, setRedirect] = useState(false);
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     Axios.get(`/api/messages/${props.match.params.id}`)
@@ -39,7 +40,7 @@ function Edit(props) {
   }
 
   if (redirect) {
-    return <Redirect to="/messages" />;
+    return <Redirect to="" />;
   }
 
   return (
@@ -48,9 +49,11 @@ function Edit(props) {
         <h1>Edit</h1>
       </header>
       <form onSubmit={handleSubmit}>
-           {/* {if message} */}
           <div className="form-group text">
-            <textarea id="message-box" className="form-control.message" name="messageContent" onChange={handleInputChange} />
+            <input type="hidden" name="messageID" value="message._id"/>
+    
+            <input type="hidden" name="conversationID" value="conversation.id"/>
+            <textarea id="message-box" className="form-control.message" defaultValue={messages.content} onChange={handleInputChange} />
             <button className="btn btn-dark" type="submit">Submit</button>
           </div>  
         </form>
