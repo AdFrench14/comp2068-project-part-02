@@ -70,6 +70,36 @@ function Index(props) {
       .catch(err => console.log(err));
   }
 
+  var messagesToRender = messages.map(message => {
+    return (
+    <tr key={message._id}>
+                  <td className="user-container">{message.content}</td>
+                  <ul className="nav flex-column">
+                    <li className="nav-item dropdown">
+                      <Link className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">...</Link> 
+                      <div className="dropdown-menu">
+                          <Link to={`/messages/${conversation._id}/${message._id}/edit}`}>edit</Link> | <Link to={`/messages/${conversation._id}/destroy`}>delete</Link>
+                      </div>
+                    </li>
+                  </ul>
+                </tr>
+    );
+  });
+
+  var usersToRender = messages.map(message => {
+    return (
+    <tr className="message-row" key={`${message.user._id}-${message._id}`}>
+      <td className="user-name">{message.user.firstName} {message.user.lastName}</td>
+    </tr> 
+    );
+  });
+
+  var tableToRender = [];
+  for(var i = 0; i < messagesToRender.length; i++) {
+    tableToRender.push(usersToRender[i]);
+    tableToRender.push(messagesToRender[i]);
+  }
+
   // {message.user.firstName}{message.user.lastName}
   console.log("our data", conversation, users, messages);
   if(conversation.length !== 0){
@@ -81,25 +111,26 @@ function Index(props) {
         <div className="box left">
           <table className="table table-striped convo">
             <tbody>
+              {tableToRender}
+              {/*
               {messages.map(message => (
-                <tr className="message-row" key={conversation._id}>
+                <tr className="message-row" key={message.user._id}>
                   <td className="user-name">{message.user.firstName} {message.user.lastName}</td>
                 </tr>  
-              ))}
+              ))} 
               {messages.map(message => (
-                <tr>
-                  <td className="user-container">{message.content}
-                    <ul className="nav flex-column">
-                      <li className="nav-item dropdown">
-                        <Link className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">...</Link> 
-                        <div className="dropdown-menu">
-                            <Link to={`/messages/${conversation._id}/${message._id}/edit}`}>edit</Link> | <Link to={`/messages/${conversation._id}/destroy`}>delete</Link>
-                        </div>
-                      </li>
-                    </ul>
-                  </td> 
+                <tr key={message._id}>
+                  <td className="user-container">{message.content}</td>
+                  <ul className="nav flex-column">
+                    <li className="nav-item dropdown">
+                      <Link className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">...</Link> 
+                      <div className="dropdown-menu">
+                          <Link to={`/messages/${conversation._id}/${message._id}/edit}`}>edit</Link> | <Link to={`/messages/${conversation._id}/destroy`}>delete</Link>
+                      </div>
+                    </li>
+                  </ul>
                 </tr>
-              ))}
+              ))}*/}
             </tbody>
           </table>
         </div>
